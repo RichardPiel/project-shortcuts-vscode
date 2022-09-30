@@ -1,11 +1,17 @@
 {
   "name": "shortcuts-project-vscode",
-  "displayName": "shortcuts-project-vscode",
-  "description": "",
+	"publisher": "RichardPiel",
+	"displayName": "Shortcuts Project",
+	"description": "Easily store shortcuts related to your project and access them directly from VSCode.",
+  "icon": "media/icon.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.71.0"
   },
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/RichardPiel/shortcuts-project-vscode"
+	},
   "categories": [
     "Other"
   ],
