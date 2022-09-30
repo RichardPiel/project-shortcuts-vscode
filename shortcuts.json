@@ -1,6 +1,7 @@
 [
     {
         "name": "Google",
+        "description": "Google is a search engine",
         "url": "http://www.google.com"
     }
 ]

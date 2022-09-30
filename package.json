@@ -4,7 +4,7 @@
 	"displayName": "Shortcuts Project",
 	"description": "Easily store shortcuts related to your project and access them directly from VSCode.",
   "icon": "media/icon.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.71.0"
   },
