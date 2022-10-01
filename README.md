@@ -1,4 +1,4 @@
-# shortcuts-project-vscode README
+# Project Shortcuts
 
 Easily store shortcuts related to your project and access them directly from VSCode.
 
@@ -12,6 +12,9 @@ Juste create a **shortcuts.json** in your root folder with this content:
         }
     ]
 
+Then access your shortcuts directly in the activity bar.
+
+![](media/activity_bar.png)
 
 ---
 
