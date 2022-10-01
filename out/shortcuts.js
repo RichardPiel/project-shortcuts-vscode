@@ -14,28 +14,19 @@ class ShortcustProvider {
         this._onDidChangeTreeData.fire();
     }
     getTreeItem(element) {
-        console.log('getTreeItem', element);
         return element;
     }
     getChildren(element) {
-        console.log('getChildren', element);
         if (!this.workspaceRoot) {
-            vscode.window.showInformationMessage('No dependency in empty workspace');
+            vscode.window.showInformationMessage('Empty workspace!');
             return Promise.resolve([]);
         }
-        return Promise.resolve(this.getShortcuts());
-        // if (element) {
-        // } else {
-        // 	const packageJsonPath = path.join(this.workspaceRoot, 'package.json');
-        // 	if (this.pathExists(packageJsonPath)) {
-        // 		vscode.window.showInformationMessage('dependency loaded');
-        // 		return Promise.resolve(this.getDepsInPackageJson(packageJsonPath));
-        // 	} else {
-        // 		vscode.window.showInformationMessage('Workspace has no package.json');
-        // 		return Promise.resolve([]);
-        // 	}
-        // }
-        vscode.window.showInformationMessage('Workspace has no package.json');
+        const shortcutsJsonPath = path.join(this.workspaceRoot, 'shortcuts.json');
+        if (this.pathExists(shortcutsJsonPath)) {
+            vscode.window.showInformationMessage('Shortcuts loaded!');
+            return Promise.resolve(this.getShortcuts(shortcutsJsonPath));
+        }
+        vscode.window.showInformationMessage('Workspace has no shortcuts.json');
         return Promise.resolve([]);
     }
     pathExists(p) {
@@ -47,28 +38,19 @@ class ShortcustProvider {
         }
         return true;
     }
-    getShortcuts() {
+    getShortcuts(shortcutsJsonPath) {
         const shortcuts = [];
-        if (this.workspaceRoot) {
-            const shortcutsJsonPath = path.join(this.workspaceRoot, 'shortcuts.json');
-            if (this.pathExists(shortcutsJsonPath)) {
-                const shortcutsJson = fs.readFileSync(shortcutsJsonPath, 'utf-8');
-                const shortcutsData = JSON.parse(shortcutsJson);
-                console.log('shortcutsData', shortcutsData);
-                shortcutsData.forEach((element) => console.log(element));
-                for (const shortcut in shortcutsData) {
-                    console.log('shortcut', shortcutsData[shortcut]);
-                    const description = shortcutsData[shortcut].description ? shortcutsData[shortcut].description : shortcutsData[shortcut].url;
-                    shortcuts.push(new Shortcut(shortcutsData[shortcut].name, description, vscode.TreeItemCollapsibleState.None, {
-                        command: 'shortcuts-project-vscode.openShortcut',
-                        title: 'Open Shortcut ' + shortcutsData[shortcut].name,
-                        arguments: [{ url: shortcutsData[shortcut].url }]
-                    }));
-                }
-            }
-            return shortcuts;
+        const shortcutsJson = fs.readFileSync(shortcutsJsonPath, 'utf-8');
+        const shortcutsData = JSON.parse(shortcutsJson);
+        for (const shortcut in shortcutsData) {
+            const description = shortcutsData[shortcut].description ? shortcutsData[shortcut].description : shortcutsData[shortcut].url;
+            shortcuts.push(new Shortcut(shortcutsData[shortcut].name, description, vscode.TreeItemCollapsibleState.None, {
+                command: 'project-shortcuts-vscode.openShortcut',
+                title: 'Open Shortcut ' + shortcutsData[shortcut].name,
+                arguments: [{ url: shortcutsData[shortcut].url }]
+            }));
         }
-        return [];
+        return shortcuts;
     }
 }
 exports.ShortcustProvider = ShortcustProvider;

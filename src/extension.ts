@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const commandHandler = (url: any) => {
 		vscode.env.openExternal(vscode.Uri.parse(url.url));
 	};
-	let disposable = vscode.commands.registerCommand('shortcuts-project-vscode.openShortcut', commandHandler);
+	let disposable = vscode.commands.registerCommand('project-shortcuts-vscode.openShortcut', commandHandler);
 	context.subscriptions.push(disposable);
 }
 
