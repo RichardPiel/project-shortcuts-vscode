@@ -16,13 +16,13 @@
 	],
   "repository": {
 		"type": "git",
-		"url": "https://github.com/RichardPiel/shortcuts-project-vscode"
+		"url": "https://github.com/RichardPiel/project-shortcuts-vscode"
 	},
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:shortcuts-project-vscode.openShortcut",
+    "onCommand:project-shortcuts-vscode.openShortcut",
     "onView:shortcuts"
   ],
   "main": "./out/extension.js",
@@ -48,7 +48,7 @@
     },
     "commands": [
       {
-        "command": "shortcuts-project-vscode.openShortcut",
+        "command": "project-shortcuts-vscode.openShortcut",
         "title": "Open Shortcut"
       }
     ]
