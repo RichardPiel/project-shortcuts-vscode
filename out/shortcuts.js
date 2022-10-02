@@ -23,7 +23,6 @@ class ShortcustProvider {
         }
         const shortcutsJsonPath = path.join(this.workspaceRoot, 'shortcuts.json');
         if (this.pathExists(shortcutsJsonPath)) {
-            vscode.window.showInformationMessage('Shortcuts loaded!');
             return Promise.resolve(this.getShortcuts(shortcutsJsonPath));
         }
         vscode.window.showInformationMessage('Workspace has no shortcuts.json');
@@ -40,14 +39,19 @@ class ShortcustProvider {
     }
     getShortcuts(shortcutsJsonPath) {
         const shortcuts = [];
-        const shortcutsJson = fs.readFileSync(shortcutsJsonPath, 'utf-8');
-        const shortcutsData = JSON.parse(shortcutsJson);
-        for (const shortcut in shortcutsData) {
-            const description = shortcutsData[shortcut].description ? shortcutsData[shortcut].description : shortcutsData[shortcut].url;
-            shortcuts.push(new Shortcut(shortcutsData[shortcut].name, description, vscode.TreeItemCollapsibleState.None, {
+        let shortcutsJson = [];
+        try {
+            shortcutsJson = JSON.parse(fs.readFileSync(shortcutsJsonPath, 'utf8'));
+        }
+        catch {
+            // do nothing
+        }
+        for (const shortcut in shortcutsJson) {
+            const description = shortcutsJson[shortcut].description ? shortcutsJson[shortcut].description : shortcutsJson[shortcut].url;
+            shortcuts.push(new Shortcut(shortcutsJson[shortcut].name, description, vscode.TreeItemCollapsibleState.None, {
                 command: 'project-shortcuts-vscode.openShortcut',
-                title: 'Open Shortcut ' + shortcutsData[shortcut].name,
-                arguments: [{ url: shortcutsData[shortcut].url }]
+                title: 'Open Shortcut ' + shortcutsJson[shortcut].name,
+                arguments: [{ url: shortcutsJson[shortcut].url }]
             }));
         }
         return shortcuts;

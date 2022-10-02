@@ -4,7 +4,7 @@
 	"displayName": "Project Shortcuts",
 	"description": "Easily store shortcuts related to your project and access them directly from VSCode.",
   "icon": "media/icon.png",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -27,6 +27,12 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsWelcome": [
+      {
+        "view": "shortcuts",
+        "contents": "No shortcuts found.\n[Add Shortcut](command:project-shortcuts-vscode.addEntry)"
+      }
+    ],
     "viewsContainers": {
 			"activitybar": [
 				{
@@ -36,6 +42,20 @@
 				}
 			]
 		},
+    "menus": {
+      "view/title": [
+        {
+          "command": "project-shortcuts-vscode.addEntry",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "project-shortcuts-vscode.deleteEntry",
+          "group": "inline"
+        }
+      ]
+    },
     "views": {
 			"shortcuts-explorer": [
 				{
@@ -50,6 +70,23 @@
       {
         "command": "project-shortcuts-vscode.openShortcut",
         "title": "Open Shortcut"
+      },
+      {
+        "command": "project-shortcuts-vscode.addEntry",
+        "title": "Create Shortcut",
+        "icon": {
+          "light": "resources/light/add.svg",
+          "dark": "resources/dark/add.svg"
+        }
+      },
+      {
+        "command": "project-shortcuts-vscode.deleteEntry",
+        "title": "Delete Shortcut",
+        "when": "view == shortcuts && viewItem == shortcut",
+        "icon": {
+          "light": "resources/light/delete.svg",
+          "dark": "resources/dark/delete.svg"
+        }
       }
     ]
   },

@@ -27,7 +27,6 @@ export class ShortcustProvider implements vscode.TreeDataProvider<Shortcut> {
 
 		const shortcutsJsonPath = path.join(this.workspaceRoot, 'shortcuts.json');
 		if (this.pathExists(shortcutsJsonPath)) {
-			vscode.window.showInformationMessage('Shortcuts loaded!');
 			return Promise.resolve(this.getShortcuts(shortcutsJsonPath));
 		}
 
@@ -48,16 +47,20 @@ export class ShortcustProvider implements vscode.TreeDataProvider<Shortcut> {
 
 	private getShortcuts(shortcutsJsonPath: string): Shortcut[] {
 		const shortcuts: Shortcut[] = [];
+		let shortcutsJson = [];
+		try {
+			shortcutsJson = JSON.parse(fs.readFileSync(shortcutsJsonPath, 'utf8'));
+		}
+		catch {
+			// do nothing
+		}
 
-		const shortcutsJson = fs.readFileSync(shortcutsJsonPath, 'utf-8');
-		const shortcutsData = JSON.parse(shortcutsJson);
-
-		for (const shortcut in shortcutsData) {
-			const description = shortcutsData[shortcut].description ? shortcutsData[shortcut].description : shortcutsData[shortcut].url;
-			shortcuts.push(new Shortcut(shortcutsData[shortcut].name, description, vscode.TreeItemCollapsibleState.None, {
+		for (const shortcut in shortcutsJson) {
+			const description = shortcutsJson[shortcut].description ? shortcutsJson[shortcut].description : shortcutsJson[shortcut].url;
+			shortcuts.push(new Shortcut(shortcutsJson[shortcut].name, description, vscode.TreeItemCollapsibleState.None, {
 				command: 'project-shortcuts-vscode.openShortcut',
-				title: 'Open Shortcut ' + shortcutsData[shortcut].name,
-				arguments: [{ url: shortcutsData[shortcut].url }]
+				title: 'Open Shortcut ' + shortcutsJson[shortcut].name,
+				arguments: [{ url: shortcutsJson[shortcut].url }]
 			}));
 		}
 		return shortcuts;
@@ -82,6 +85,5 @@ export class Shortcut extends vscode.TreeItem {
 		light: path.join(__filename, '..', '..', 'resources', 'light', 'link.svg'),
 		dark: path.join(__filename, '..', '..', 'resources', 'dark', 'link.svg')
 	};
-
 	contextValue = 'shortcut';
 }
