@@ -1,10 +1,15 @@
 [
-    {
-        "name": "Marketplace",
-        "url": "https://marketplace.visualstudio.com/items?itemName=RichardPiel.project-shortcuts-vscode"
-    },
-    {
-        "name": "Repository",
-        "url": "https://github.com/RichardPiel/project-shortcuts-vscode"
-    }
+  {
+    "name": "Marketplace",
+    "url": "https://marketplace.visualstudio.com/items?itemName=RichardPiel.project-shortcuts-vscode"
+  },
+  {
+    "name": "Repository",
+    "url": "https://github.com/RichardPiel/project-shortcuts-vscode"
+  },
+  {
+    "name": "Google",
+    "url": "https://goohle.fr",
+    "description": ""
+  }
 ]

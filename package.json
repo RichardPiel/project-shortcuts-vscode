@@ -1,23 +1,23 @@
 {
   "name": "project-shortcuts-vscode",
-	"publisher": "RichardPiel",
-	"displayName": "Project Shortcuts",
-	"description": "Easily store shortcuts related to your project and access them directly from VSCode.",
+  "publisher": "RichardPiel",
+  "displayName": "Project Shortcuts",
+  "description": "Easily store shortcuts related to your project and access them directly from VSCode.",
   "icon": "media/icon.png",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.71.0"
   },
   "keywords": [
-		"shortcut",
-		"link",
-		"project",
-		"memo"
-	],
+    "shortcut",
+    "link",
+    "project",
+    "memo"
+  ],
   "repository": {
-		"type": "git",
-		"url": "https://github.com/RichardPiel/project-shortcuts-vscode"
-	},
+    "type": "git",
+    "url": "https://github.com/RichardPiel/project-shortcuts-vscode"
+  },
   "categories": [
     "Other"
   ],
@@ -34,18 +34,19 @@
       }
     ],
     "viewsContainers": {
-			"activitybar": [
-				{
-					"id": "shortcuts-explorer",
-					"title": "Shortcuts Explorer",
-					"icon": "media/external-link.svg"
-				}
-			]
-		},
+      "activitybar": [
+        {
+          "id": "shortcuts-explorer",
+          "title": "Shortcuts Explorer",
+          "icon": "media/external-link.svg"
+        }
+      ]
+    },
     "menus": {
       "view/title": [
         {
           "command": "project-shortcuts-vscode.addEntry",
+          "when": "view == shortcuts && viewItem == shortcut",
           "group": "navigation"
         }
       ],
@@ -57,14 +58,14 @@
       ]
     },
     "views": {
-			"shortcuts-explorer": [
-				{
-					"id": "shortcuts",
-					"name": "Shortcuts",
-					"icon": "media/external-link.svg",
-					"contextualTitle": "Shortcuts Explorer"
-				}
-			]
+      "shortcuts-explorer": [
+        {
+          "id": "shortcuts",
+          "name": "Shortcuts",
+          "icon": "media/external-link.svg",
+          "contextualTitle": "Shortcuts Explorer"
+        }
+      ]
     },
     "commands": [
       {
