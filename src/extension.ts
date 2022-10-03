@@ -89,7 +89,6 @@ export function activate(context: vscode.ExtensionContext) {
 		let shortcutsJson = [];
 
 		if (pathExists(shortcutsJsonPath)) {
-			console.log('ZZZ try');
 			try {
 				shortcutsJson = JSON.parse(fs.readFileSync(shortcutsJsonPath, 'utf8'));
 			}
@@ -103,7 +102,6 @@ export function activate(context: vscode.ExtensionContext) {
 			url: shortcutUrl,
 			description: shortcutDescription
 		});
-console.log('ZZZ shortcutsJson', shortcutsJson);
 		fs.writeFileSync(shortcutsJsonPath, JSON.stringify(shortcutsJson, null, 2));
 
 		registerTreeDataProvider();

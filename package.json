@@ -4,7 +4,7 @@
   "displayName": "Project Shortcuts",
   "description": "Easily store shortcuts related to your project and access them directly from VSCode.",
   "icon": "media/icon.png",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -46,7 +46,7 @@
       "view/title": [
         {
           "command": "project-shortcuts-vscode.addEntry",
-          "when": "view == shortcuts && viewItem == shortcut",
+          "when": "view == shortcuts",
           "group": "navigation"
         }
       ],
