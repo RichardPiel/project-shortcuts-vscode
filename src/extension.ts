@@ -16,8 +16,8 @@ export function activate(context: vscode.ExtensionContext) {
 	if (folders) {
 		let watcher = vscode.workspace.createFileSystemWatcher(
 			new vscode.RelativePattern(folders[0], "*.json"));
-		watcher.onDidCreate(uri => registerTreeDataProvider());
-		watcher.onDidChange(uri => registerTreeDataProvider());
+		watcher.onDidCreate(() => registerTreeDataProvider());
+		watcher.onDidChange(() => registerTreeDataProvider());
 	}
 
 	/**	
@@ -30,7 +30,8 @@ export function activate(context: vscode.ExtensionContext) {
 	/**	
 	 * Delete Shortcut
 	 */
-	context.subscriptions.push(vscode.commands.registerCommand('project-shortcuts-vscode.deleteEntry',(node: Shortcut) => {
+	context.subscriptions.push(vscode.commands.registerCommand('project-shortcuts-vscode.deleteEntry', (node: Shortcut) => {
+
 		if (!rootPath) {
 			vscode.window.showInformationMessage('Empty workspace!');
 			return;
@@ -131,12 +132,12 @@ function pathExists(p: string): boolean {
 	return true;
 }
 
-const isValidUrl = (urlString: string)=> {
-	var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-  '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-return !!urlPattern.test(urlString);
+const isValidUrl = (urlString: string) => {
+	var urlPattern = new RegExp('^(https?:\\/\\/)?' + // validate protocol
+		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // validate domain name
+		'((\\d{1,3}\\.){3}\\d{1,3}))' + // validate OR ip (v4) address
+		'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // validate port and path
+		'(\\?[;&a-z\\d%_.~+=-]*)?' + // validate query string
+		'(\\#[-a-z\\d_]*)?$', 'i'); // validate fragment locator
+	return !!urlPattern.test(urlString);
 };
